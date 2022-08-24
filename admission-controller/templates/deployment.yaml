@@ -12,7 +12,9 @@ spec:
       labels:
         app: {{ include "admission.fullname" . }}
       annotations:
-        sidecar.istio.io/inject: "false"
+        {{- if .Values.podAnnotations }}
+        {{ toYaml .Values.podAnnotations | indent 8 }}
+        {{- end }}
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
     spec:
       securityContext:
