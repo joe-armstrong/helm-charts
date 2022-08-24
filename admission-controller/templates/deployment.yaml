@@ -42,10 +42,16 @@ spec:
               path: /healthz
               port: 8443
           volumeMounts:
+            - name: "certs"
+              mountPath: "/certs"
+              readOnly: true
             - name: "lacework-admission-volume"
               mountPath: "/config"
               readOnly: true
       volumes:
+        - name: "certs"
+          secret:
+            secretName: {{ .Values.certs.name }}
         - name: "lacework-admission-volume"
           configMap:
             name: {{ include "admission.fullname" . }}
