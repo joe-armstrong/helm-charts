@@ -6,6 +6,8 @@ logger:
 
 admission:
   tls_port: 8443
+  cert_file_path: "/certs/admission.crt"
+  cert_key_path: "/certs/admission.key"
   excluded_resources:
   -
   -
