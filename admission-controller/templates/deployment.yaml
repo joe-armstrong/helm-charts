@@ -11,11 +11,9 @@ spec:
     metadata:
       labels:
         app: {{ include "admission.fullname" . }}
-      {{- with .Values.annotations }}
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        {{ toYaml .Values.podAnnotations | indent 8 }}
     spec:
       securityContext:
         runAsUser: 11431
