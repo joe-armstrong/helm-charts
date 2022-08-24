@@ -54,7 +54,11 @@ spec:
       volumes:
         - name: "certs"
           secret:
+          {{- if .Values.certs_secret_name }}
+            secretName: {{ .Values.certs_secret_name }}
+          {{- else }}
             secretName: {{ .Values.certs.name }}
+          {{- end }}
         - name: "lacework-admission-volume"
           configMap:
             name: {{ include "admission.fullname" . }}
